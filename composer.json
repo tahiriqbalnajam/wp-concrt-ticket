@@ -1,0 +1,7 @@
+{
+    "require": {
+        "bacon/bacon-qr-code": "^2.0",
+        "ph-7/qrcode-generator-php-class": "^2.2",
+        "nguyenary/qr-code-monkey": "^1.0"
+    }
+}

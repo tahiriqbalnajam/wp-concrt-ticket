@@ -1,0 +1,278 @@
+{
+    "packages": [
+        {
+            "name": "bacon/bacon-qr-code",
+            "version": "2.0.8",
+            "version_normalized": "2.0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bacon/BaconQrCode.git",
+                "reference": "8674e51bb65af933a5ffaf1c308a660387c35c22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bacon/BaconQrCode/zipball/8674e51bb65af933a5ffaf1c308a660387c35c22",
+                "reference": "8674e51bb65af933a5ffaf1c308a660387c35c22",
+                "shasum": ""
+            },
+            "require": {
+                "dasprid/enum": "^1.0.3",
+                "ext-iconv": "*",
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phly/keep-a-changelog": "^2.1",
+                "phpunit/phpunit": "^7 | ^8 | ^9",
+                "spatie/phpunit-snapshot-assertions": "^4.2.9",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "suggest": {
+                "ext-imagick": "to generate QR code images"
+            },
+            "time": "2022-12-07T17:46:57+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "BaconQrCode\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Scholzen 'DASPRiD'",
+                    "email": "mail@dasprids.de",
+                    "homepage": "https://dasprids.de/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "BaconQrCode is a QR code generator for PHP.",
+            "homepage": "https://github.com/Bacon/BaconQrCode",
+            "support": {
+                "issues": "https://github.com/Bacon/BaconQrCode/issues",
+                "source": "https://github.com/Bacon/BaconQrCode/tree/2.0.8"
+            },
+            "install-path": "../bacon/bacon-qr-code"
+        },
+        {
+            "name": "curl/curl",
+            "version": "2.5.0",
+            "version_normalized": "2.5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-mod/curl.git",
+                "reference": "c4f8799c471e43b7c782c77d5c6e178d0465e210"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-mod/curl/zipball/c4f8799c471e43b7c782c77d5c6e178d0465e210",
+                "reference": "c4f8799c471e43b7c782c77d5c6e178d0465e210",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.6 | ^7.0 | ^8.0"
+            },
+            "require-dev": {
+                "yoast/phpunit-polyfills": "^0.2.0"
+            },
+            "time": "2022-12-14T13:27:59+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Curl": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "php-curl-class",
+                    "homepage": "https://github.com/php-curl-class"
+                },
+                {
+                    "name": "Hassan Amouhzi",
+                    "email": "hassan@anezi.net",
+                    "homepage": "http://hassan.amouhzi.com"
+                },
+                {
+                    "name": "user52",
+                    "homepage": "https://github.com/user52"
+                }
+            ],
+            "description": "cURL class for PHP",
+            "homepage": "https://github.com/php-mod/curl",
+            "keywords": [
+                "curl",
+                "dot"
+            ],
+            "support": {
+                "issues": "https://github.com/php-mod/curl/issues",
+                "source": "https://github.com/php-mod/curl/tree/2.5.0"
+            },
+            "install-path": "../curl/curl"
+        },
+        {
+            "name": "dasprid/enum",
+            "version": "1.0.5",
+            "version_normalized": "1.0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DASPRiD/Enum.git",
+                "reference": "6faf451159fb8ba4126b925ed2d78acfce0dc016"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/6faf451159fb8ba4126b925ed2d78acfce0dc016",
+                "reference": "6faf451159fb8ba4126b925ed2d78acfce0dc016",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1 <9.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7 | ^8 | ^9",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "time": "2023-08-25T16:18:39+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "DASPRiD\\Enum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Scholzen 'DASPRiD'",
+                    "email": "mail@dasprids.de",
+                    "homepage": "https://dasprids.de/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP 7.1 enum implementation",
+            "keywords": [
+                "enum",
+                "map"
+            ],
+            "support": {
+                "issues": "https://github.com/DASPRiD/Enum/issues",
+                "source": "https://github.com/DASPRiD/Enum/tree/1.0.5"
+            },
+            "install-path": "../dasprid/enum"
+        },
+        {
+            "name": "nguyenary/qr-code-monkey",
+            "version": "v1.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nguyenary/QRCodeMonkey.git",
+                "reference": "77a3941f73eba25d1ef749bb75de8f5a7755c2df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nguyenary/QRCodeMonkey/zipball/77a3941f73eba25d1ef749bb75de8f5a7755c2df",
+                "reference": "77a3941f73eba25d1ef749bb75de8f5a7755c2df",
+                "shasum": ""
+            },
+            "require": {
+                "curl/curl": "^2.3",
+                "php": ">=7.2"
+            },
+            "suggest": {
+                "ext-json": "*"
+            },
+            "time": "2021-09-01T14:50:17+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "nguyenary\\QRCodeMonkey\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "nguyenary",
+                    "email": "nguyenary.dev@gmail.com"
+                }
+            ],
+            "description": "PHP Library for free generator QR Code from qrcode-monkey.com",
+            "support": {
+                "issues": "https://github.com/nguyenary/QRCodeMonkey/issues",
+                "source": "https://github.com/nguyenary/QRCodeMonkey/tree/v1.0"
+            },
+            "install-path": "../nguyenary/qr-code-monkey"
+        },
+        {
+            "name": "ph-7/qrcode-generator-php-class",
+            "version": "2.2.0",
+            "version_normalized": "2.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pH-7/QRCode-Generator-PHP-Class.git",
+                "reference": "3dcea02a04d31f1a738c15b1d4bbcb28423da388"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pH-7/QRCode-Generator-PHP-Class/zipball/3dcea02a04d31f1a738c15b1d4bbcb28423da388",
+                "reference": "3dcea02a04d31f1a738c15b1d4bbcb28423da388",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "time": "2021-07-04T06:07:32+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "QRCode.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Pierre-Henry Soria",
+                    "email": "phy@hizup.uk",
+                    "homepage": "http://hizup.uk",
+                    "role": "Web Engineer"
+                }
+            ],
+            "description": "Light QRCode PHP class (library). QR Code Generator using vCard 4.0 and the Google Chart AP",
+            "homepage": "http://hizup.uk",
+            "keywords": [
+                "class",
+                "library",
+                "qr code",
+                "qr code class",
+                "qr code library",
+                "vCard"
+            ],
+            "support": {
+                "issues": "https://github.com/pH-7/QRCode-Generator-PHP-Class/issues",
+                "source": "https://github.com/pH-7/QRCode-Generator-PHP-Class/tree/2.2.0"
+            },
+            "install-path": "../ph-7/qrcode-generator-php-class"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
