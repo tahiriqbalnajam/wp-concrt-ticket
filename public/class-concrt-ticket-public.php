@@ -62,6 +62,9 @@ class Concrt_Ticket_Public {
 		$order_exp_id = explode('-', $order_encrypt_id)[0];
 		$order_number = explode('-', $order_encrypt_id)[1];
 		$order_id = $this->decrypt($order_exp_id);
+		$ordered_id = $this->decrypt($order_exp_id);
+		$var_id = $this->decrypt($order_number);
+		$counter_number = $this->decrypt(explode('-', $order_encrypt_id)[2]);
 		$order = wc_get_order( $order_id );
 		if(!$order) {
 			echo 'Invalid ticket';
@@ -202,5 +205,18 @@ class Concrt_Ticket_Public {
 	function decrypt($encryptedData) {
 		$decrypted = strtr($encryptedData, 'LMNOPQRSTU', '0123456789');
 		return $decrypted;
+	}
+
+
+	public function add_unique_id($order_id) {
+        $order = new WC_Order( $order_id );
+        $items = $order->get_items(); 
+		$count = 1;
+        foreach ($items as $item_id => $product ) {
+			$order_number = $this->encrypt($order_idt);
+			$product_id = $this->encrypt($item_id);
+			$randomNumber = $order_number.'-'.$product_id.'-'.$count;
+          	wc_add_order_item_meta($item_id, 'unique_order_id', $randomNumber);
+    	}
 	}
 }

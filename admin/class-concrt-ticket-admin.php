@@ -534,6 +534,7 @@ class Concrt_Ticket_Admin {
             'system_fee',
             'marketing_fee',
             'tour_name',
+            'tour_promotor',
             'main_act_name',
             'nlocal_promoter',
             'start_date_time',
@@ -590,11 +591,14 @@ class Concrt_Ticket_Admin {
 
     public function download_orders_csv() {
         $product_id = $_POST['variation_id'];
+        $tour_name = get_post_meta( $product_id, 'tour_name', true );
+        $main_act_name = get_post_meta( $product_id, 'main_act_name', true );
         $regular_price = get_post_meta( $product_id, '_regular_price', true );
         $sale_price = get_post_meta( $product_id, '_sale_price', true );
-
         $price =  ( $sale_price ) ?? $regular_price;
+        $price =  $regular_price;
         $venue_name = get_post_meta( $product_id, 'venue_name', true );
+        $local_promoter = get_post_meta( $product_id, 'nlocal_promoter', true );
         $street_address = get_post_meta( $product_id, 'street_address', true );
         $zip_code = get_post_meta( $product_id, 'zip_code', true );
         $city = get_post_meta( $product_id, 'city', true );
@@ -606,31 +610,56 @@ class Concrt_Ticket_Admin {
         $orders = $this->get_product_orders($product_id);
         $total = 0;
         $no_of_orders = 0;
+        $total_no_of_orders = 0;
         
         foreach ($orders as $order_id) {
             $order = wc_get_order($order_id);
-            $no_of_orders++;
-            $currency = $order->get_currency();
+            foreach ( $order->get_items() as $item_key => $item ) {
+                $quantity = $item->get_quantity();
+                $item_data = $item->get_data();
+                $variation_id = $item_data['variation_id'];
+                for( $i=1; $i<=$quantity; $i++){ 
+                    if($variation_id == $product_id){
+                        $total_no_of_orders++;
+                    }
+                }
+            }
+            //$order = wc_get_order($order_id);
+            //$no_of_orders++;
+            //$currency = $order->get_currency();
             // $customer = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
             // $email = $order->get_billing_email();
-            $total += $order->get_total();
+            //$total += $order->get_total();
             // $date = $order->get_date_created()->format('Y-m-d H:i:s');
             // $csv_data[] = array($order_id, $customer, $email, $total, $date);
         }
 
         $currency = $order->get_currency();
+        $total = $total_no_of_orders*$price;
+        $total_sum = $total + $total_no_of_orders*((10 / 100) * $price) + $total_no_of_orders* $system_fee + $total_no_of_orders* $marketing_fee;
 
-        $csv_data[] = array($venue_name.', '.$street_address);
-        $csv_data[] = array($zip_code.', '.$city);
-        $csv_data[] = array('On Sale Period', $start_date_time.' - '.$end_date_time);
-        $csv_data[] = array('Report printed on', date('d-m-Y H:i:s'));
+        $csv_data[] = array('Subject', $tour_name);
+        $csv_data[] = array(' ');
+        $csv_data[] = array('Main Act', $main_act_name);
+        $show_date = date('d F, Y', strtotime($start_date_time));
+        $csv_data[] = array('Show Date', $show_date);
+        $csv_data[] = array('Venue Name', $venue_name);
+        $csv_data[] = array('Local Promoter', $local_promoter);
+        $csv_data[] = array('Street #', $street_address);
+
+        $csv_data[] = array('Zip + City', $zip_code.', '.$city);
+        $csv_data[] = array(' ');
+        $csv_data[] = array('On Sale Period',  date('d F, Y', strtotime($start_date_time)));
+        $csv_data[] = array('Report printed on', date('d F, Y H:i:s'));
         $csv_data[] = array('');
         $csv_data[] = array('');
         $csv_data[] = array('Position', 'Tax','Amount','Single Price', 'Sum');
-        $csv_data[] = array('Base Price', '7%', $no_of_orders,  $currency.$price, $currency.$total);
-        $csv_data[] = array('Presale Fee', $presale_fee);
-        $csv_data[] = array('System Fee', $system_fee);
-        $csv_data[] = array('Marketing Fee', $marketing_fee);
+        $csv_data[] = array('Base Price', '7%', $total_no_of_orders,  $currency.$price, $currency.$total);
+        $csv_data[] = array('Presale Fee', '7%', $total_no_of_orders, $currency. (10 / 100) * $price, $currency.$total_no_of_orders*((10 / 100) * $price));
+        $csv_data[] = array('System Fee', '7%', $total_no_of_orders, $currency.$system_fee, $currency.$total_no_of_orders* $system_fee);
+        $csv_data[] = array('Marketing Fee', '7%', $total_no_of_orders, $currency.$marketing_fee, $currency.$total_no_of_orders* $marketing_fee);
+        $csv_data[] = array(' ', ' ', ' ', 'Sum', $currency.$total_sum);
+        $csv_data[] = array(' ', ' ', ' ', 'inkl. 7% Tax', $currency.(number_format($total_sum+($total_sum/1.07), 3)),' (in case of 7% Tax)');
 
         
         $filename = 'orders-' . $product_id . '-' . date('YmdHis') . '.csv';

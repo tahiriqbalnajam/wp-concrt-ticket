@@ -14,17 +14,18 @@
     $street_address = get_post_meta( $variation_id, 'street_address', true );
     $zip_code = get_post_meta( $variation_id, 'zip_code', true );
     $city = get_post_meta( $variation_id, 'city', true );
-
+    $local_promoter = get_post_meta( $variation_id, 'nlocal_promoter', true );
     $item_total = intval( $item_data['total'] );
     $total += $variation->get_price(); 
 
 
-    $regular_price = get_post_meta( $variation_id, '_regular_price', true );
-    $presale_fee = get_post_meta( $variation_id, 'presale_fee', true );       
-    $presale_fee_after_discount = ($presale_fee / 100) * $regular_price; 
-    $system_fee = get_post_meta( $variation_id, 'system_fee', true );
-    $marketing_fee = get_post_meta( $variation_id, 'marketing_fee', true );
-    $total = $regular_price + $presale_fee_after_discount + $system_fee + $marketing_fee;
+	$regular_price = get_post_meta( $variation_id, '_regular_price', true );
+	$presale_fee = get_post_meta( $variation_id, 'presale_fee', true );       
+	$presale_fee_after_discount = ($presale_fee / 100) * $regular_price; 
+	$system_fee = get_post_meta( $variation_id, 'system_fee', true );
+	$marketing_fee = get_post_meta( $variation_id, 'marketing_fee', true );
+	$total = $regular_price + $presale_fee_after_discount + $system_fee + $marketing_fee;
+
     
 
     ?>
@@ -81,11 +82,11 @@
                             </span>
                             <span
                                 style="display: block; font-family: sans-serif; font-size: 14px; color: black; padding: 20px 0 0 0;">
-                                <b>Local promoter</b><?php echo $local_promoter;?>
+                                <b>Local Promoter: </b><?php echo $local_promoter;?>
                             </span>
                             <span
                                 style="display: block; font-family: sans-serif; font-size: 14px; color: black; padding: 20px 0 0 0;">
-                                <b>Tour Promote</b><?php echo $tour_promotor;?>
+                                <b>Tour Promoter: </b><?php echo $tour_promotor;?>
                             </span>
                         </div>
                     </div>
@@ -93,7 +94,7 @@
                         <div class="leftcell" style="width: 50%; display: table-cell; vertical-align: middle;">
                             <span
                                 style="display: block; font-family: sans-serif; font-size: 28px; color: black;font-weight: 600;">
-                                Gesamtpreis: <?php echo wc_price($total);?>
+                                <?php echo wc_price($total);?>
                             </span>
                             <span
                                 style="display: block; font-family: sans-serif; font-size: 14px; color: black; padding: 20px 0 0 0;">
