@@ -83,6 +83,13 @@ class Concrt_Ticket {
 		$this->loader->add_action( 'woocommerce_checkout_update_order_meta', $plugin_public, 'before_checkout_create_order', 20, 2); 
 		$this->loader->add_action( 'woocommerce_after_variations_table', $plugin_public, 'hide_ticket_price', 10, 1); 
 		$this->loader->add_action( 'woocommerce_order_status_processing', $plugin_public, 'add_unique_id', 10, 1); 
+		
+		$this->loader->add_action( 'wp_ajax_verify_ticket_vendor', $plugin_public, 'verify_ticket_vendor' );
+		$this->loader->add_action( 'wp_ajax_nopriv_verify_ticket_vendor', $plugin_public, 'verify_ticket_vendor' );
+
+		$this->loader->add_action( 'wp_ajax_verify_ticket', $plugin_public, 'verify_ticket' );
+		$this->loader->add_action( 'wp_ajax_nopriv_verify_ticket', $plugin_public, 'verify_ticket' );
+
 		//$this->loader->add_action( 'woocommerce_email_classes', $this, 'update_order_complete_email' );
 		//$this->loader->add_filter( 'woocommerce_variation_prices_price', $plugin_public, 'idl_change_product_html',100, 3); 
 		//$this->loader->add_filter( 'woocommerce_get_variation_prices_hash', $plugin_public, 'add_price_multiplier_to_variation_prices_hash',100, 3); 

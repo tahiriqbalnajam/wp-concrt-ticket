@@ -123,6 +123,11 @@ class Concrt_Ticket_Admin {
                             'type'    => 'text',
                             'title'   => 'Enter Email-id',
                         ),
+                        array(
+                            'id'      => 'tour_promoter_password',
+                            'type'    => 'password',
+                            'title'   => 'Enter Password',
+                        ),
                     ),
                 ),
             ),

@@ -34,12 +34,16 @@ class Concrt_Ticket_Public {
 	public function concert_ticket_register_endpoint() {
 		add_rewrite_endpoint( 'ticket', EP_ROOT | EP_PAGES );
 		add_rewrite_endpoint( 'ticket/sample', EP_ROOT | EP_PAGES );
+		add_rewrite_endpoint( 'ticket/verify', EP_ROOT | EP_PAGES );
+		// add_rewrite_rule( 'ticket/?$', 'index.php?ticket=ticket', 'top' );
+		// add_rewrite_rule( 'ticket/sample/?$', 'index.php?ticket=sample', 'top' );
 	}
 
 	public function concert_ticket_add_query_var( $vars ) {
 		$vars[] = 'ticket';
 		return $vars;
 	}
+
 
 	public function concert_ticket_endpoint_content() {
 		global $wp_query;
@@ -50,7 +54,10 @@ class Concrt_Ticket_Public {
 		if(strpos($query_val, 'sample') !== false) {
 			$variation_id = explode('/', $query_val)[1];
 			$this->ticket_sample($variation_id);
-		} else {
+		} elseif(strpos($query_val, 'verify') !== false) {
+			$variation_id = explode('/', $query_val)[1];
+			$this->ticket_verify_form($variation_id);
+		}else {
 			$order_id = $wp_query->query_vars['ticket'];
 			$this->ticket_print($order_id);
 		}
@@ -79,6 +86,56 @@ class Concrt_Ticket_Public {
 
 		echo $content;
 
+	}
+
+	public function ticket_verify_form($order_encrypt_id) {
+		ob_start();
+		get_header();
+		include 'partials/ticket_verify.php';
+		get_footer();
+		$content = ob_get_contents();
+		ob_get_clean();
+
+		echo $content;
+
+	}
+
+	public function verify_ticket_vendor() {
+		global $wp_session;
+		if ( !isset( $_POST['verify_ticket_nonce'] ) || !wp_verify_nonce( $_POST['verify_ticket_nonce'], 'verify_ticket' ) ) {
+			$this->return_json('Invalid nonce', 'error');
+		}
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$all_options = get_exopite_sof_option($this->plugin_name);
+		if(!$this->checkCredentials($email, $password, $all_options['tour_promoter_options'])) {
+			$this->return_json('Invalid credentials', 'error');
+		}
+		
+		setcookie('verified_promoter', 'true', time() + (86400 * 30), '/'); // Cookie expires in 30 days
+		$this->return_json('Ticket verified successfully', 'success');
+	}
+
+	public function verify_ticket() {
+		global $wp_session;
+		if ( !isset( $_POST['verify_ticket_nonce'] ) || !wp_verify_nonce( $_POST['verify_ticket_nonce'], 'verify_ticket' ) ) {
+			$this->return_json('Invalid nonce', 'error');
+		}
+		$ticket_number = $_POST['ticket_number'];
+		//$ticket = $this->checkTicket($ticket_number);
+		if(!$ticket) {
+			$this->return_json('Ticket not found.', 'error');
+		}
+		$this->return_json('Ticket found successfully.', 'success', $ticket);
+	}
+
+	function checkCredentials($email, $password, $array) {
+		foreach ($array as $item) {
+			if ($item['tour_promoter_email'] === $email && $item['tour_promoter_password'] === $password) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function ticket_sample($variation_id) {
@@ -219,4 +276,15 @@ class Concrt_Ticket_Public {
           	wc_add_order_item_meta($item_id, 'unique_order_id', $randomNumber);
     	}
 	}
+
+function return_json($msg, $status = 'success', $data = null) {
+	header('Content-Type: application/json');
+	$response = array(
+		'msg' => $msg,
+		'status' => $status,
+		'data' => $data
+	);
+	echo json_encode($response);
+	exit;
+}
 }
